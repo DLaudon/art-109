@@ -1,0 +1,122 @@
+body {
+    animation: change-color 4s infinite alternate;
+
+}
+
+@keyframes change-color {
+    0% {
+        background-color: antiquewhite;
+    }
+
+    50% {
+        background-color: yellow;
+    }
+
+    100% {
+        background-color: beige;
+    }
+}
+
+.title {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin-top: 80px;
+    animation: skew 3s infinite alternate;
+}
+
+@keyframes skew {
+    0% {
+        transform: skew(0deg, 0deg);
+    }
+
+    100% {
+        transform: skew(30deg, 20deg);
+    }
+}
+
+.square {
+    background-color: aquamarine;
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    margin: 50px auto;
+    padding: 50px;
+    transition: background-color 1s;
+}
+
+.square:hover {
+    background-color: blueviolet;
+    transform: rotate(30deg);
+}
+
+.button-div {
+    text-align: center;
+}
+
+.button {
+    background-color: bisque;
+    color: green;
+    padding: 15px;
+    margin: 50px auto;
+    display: block;
+    width: 100px;
+    text-decoration: none;
+    transition: all .5s;
+    border-radius: 15px;
+}
+
+.button:hover {
+    background-color: brown;
+    color: black;
+    transform: scale(1.5);
+}
+
+.loading {
+    background-color: green;
+    animation: stretch 5s 2 normal;
+    width: 80vw;
+}
+
+@keyframes stretch {
+    0% {
+        width: 100px;
+    }
+
+    100% {
+        width: 80vw;
+    }
+}
+
+.footer {
+    margin: 50px;
+    padding: 50px;
+    text-align: center;
+    font-size: 100px;
+    color: purple;
+    transition: color 2s;
+}
+
+.footer:hover {
+    color: orange;
+}
+
+.img {
+
+    margin: 50px;
+    border-radius: 15px;
+    animation: fadeout 4s infinite;
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
