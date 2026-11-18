@@ -4,35 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎬 GIFs + Videos</title>
+    <title>videos</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <main>
-        <!-- youtube embed -->
-        <iframe width="560" height="315"
-            src="https://www.youtube.com/embed/pdtpI33EXHQ?autoplay=1&mute=1&loop=1&playlist=pdtpI33EXHQ"
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/pdtpI33EXHQ?autoplay=1&mute=1&loop=1&playlist=pdtpI33EXHQ"
             title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-        <!-- gif pinned over the youtube video -->
         <img src="media/chicken-walk.gif.gif" alt="walking chicken" class="chicken-walk">
-
-        <!-- gif pinned over a block of text -->
         <div class="honk-div">
             <p>honk loud honk proud honk loud honk proud honk loud honk proud honk loud honk proud honk loud honk
                 proud honk loud honk proud honk loud honk proud honk loud honk proud honk loud honk proud honk loud
                 honk proud honk loud honk proud honk loud honk proud</p>
             <img src="media/goose-shake.gif.gif" alt="shaking goose" class="goose-shake">
         </div>
-
         <!-- autoplay video -->
         <video width="180" height="320" autoplay muted loop>
             <source src="media/goose-video.mp4" type="video/mp4">
         </video>
-
         <!-- hover videos -->
         <video class="hover-video" width="180" height="320" muted loop>
             <source src="media/goose-video.mp4" type="video/mp4">
@@ -40,14 +32,17 @@
         <video class="hover-video" width="180" height="320" muted loop>
             <source src="media/goose-video.mp4" type="video/mp4">
         </video>
-
         <!-- click on play video -->
         <video class="click-video" width="180" height="320" muted loop>
             <source src="media/goose-video.mp4" type="video/mp4">
         </video>
+
+        <video id="webcam" autoplay playsinline></video>
     </main>
 
+
     <script src="js/video.js"></script>
+    <script src="js/webcam.js"></script>
 </body>
 
 </html>
