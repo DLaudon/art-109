@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Dining Hall Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+</head>
+
+<body>
+
+    <!-- energy bar, stays at the top the whole game -->
+    <div id="energy"></div>
+
+    <!-- start: pick tired or well rested -->
+    <div id="start" class="screen on">
+        <h1>Dining Hall Simulator</h1>
+        <p>How do you feel?</p>
+        <button class="mode" data-mode="tired">Tired</button>
+        <button class="mode" data-mode="rested">Well Rested</button>
+    </div>
+
+    <!-- the grid game: walking + grabbing ingredients -->
+    <div id="dodge" class="screen">
+        <h2 id="dodgeTitle"></h2>
+        <div id="dodgeRow">
+            <div id="board"></div>
+            <div id="order"></div>
+        </div>
+        <div id="dodgeMsg"></div>
+    </div>
+
+    <!-- card swipe -->
+    <div id="swipe" class="screen">
+        <h2>Swipe your card</h2>
+        <div id="reader">
+            <div id="leds">
+                <span id="ledRed" class="led"></span>
+                <span id="ledGreen" class="led"></span>
+            </div>
+            <div id="track">
+                <div id="card">ID CARD</div>
+            </div>
+        </div>
+        <div id="swipeMsg"></div>
+    </div>
+
+    <!-- skill check -->
+    <div id="skill" class="screen">
+        <h1>AVOID!!</h1>
+        <div id="dialBox">
+            <!-- the dial drawn by code (used when there are no dial drawings) -->
+            <svg id="dial" viewBox="-64 -64 128 128">
+                <circle r="50" fill="none" stroke="#000" stroke-width="2" />
+                <path id="zone" fill="none" stroke="#000" stroke-width="12" />
+                <path id="zoneInside" fill="none" stroke="#fff" stroke-width="8" />
+                <line id="needle" x1="0" y1="0" x2="0" y2="-58" stroke="#000" stroke-width="2" />
+            </svg>
+            <!-- your own dial and needle drawings -->
+            <div id="dialPic"></div>
+            <div id="needlePic"></div>
+        </div>
+        <small>click/tap</small>
+        <div id="skillMsg"></div>
+        <div id="runner"></div>
+    </div>
+
+    <!-- inside the dining hall: drag to look around, click a station -->
+    <div id="hall" class="screen">
+        <a-scene embedded xr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false"
+            cursor="rayOrigin: mouse" raycaster="objects: .station">
+            <a-entity camera position="0 1.6 0"
+                look-controls="reverseMouseDrag: true; magicWindowTrackingEnabled: false"></a-entity>
+            <a-sky color="#ECECEC"></a-sky>
+            <!-- the stations get added here by js/hall.js -->
+        </a-scene>
+        <div id="want"></div>
+        <div id="menu"></div>
+        <div id="pics"></div>
+    </div>
+
+    <!-- sit down / game over -->
+    <div id="end" class="screen">
+        <h1 id="endTitle"></h1>
+        <p id="endText"></p>
+        <button id="again" class="mode">Play again</button>
+    </div>
+
+    <script src="js/sprites.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/dodge.js"></script>
+    <script src="js/swipe.js"></script>
+    <script src="js/skill.js"></script>
+    <script src="js/hall.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

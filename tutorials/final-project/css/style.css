@@ -1,0 +1,409 @@
+body {
+    margin: 0;
+    background: #fff;
+    color: #000;
+    font-family: monospace;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+h1 {
+    font-size: 28px;
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+/* ---------- energy bar ---------- */
+
+#energy {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #fff;
+    z-index: 10;
+}
+
+#energy span {
+    margin-right: 6px;
+}
+
+.seg {
+    width: 14px;
+    height: 18px;
+    border: 2px solid #000;
+    border-radius: 4px;
+}
+
+.seg.full {
+    background: #000;
+}
+
+#energy.flash {
+    background: #000;
+    color: #fff;
+}
+
+/* ---------- screens (only the one with "on" shows) ---------- */
+
+.screen {
+    display: none;
+    position: fixed;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.screen.on {
+    display: flex;
+}
+
+/* the rounded bars on the start and end screens */
+.mode {
+    width: min(80vw, 320px);
+    padding: 18px;
+    margin: 8px;
+    border: 3px solid #000;
+    border-radius: 16px;
+    background: #fff;
+    color: #000;
+    font-family: monospace;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* ---------- grid game ---------- */
+
+#dodgeRow {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#board {
+    --cell: min(20vw, 9vh);
+    display: grid;
+    grid-template-rows: repeat(5, var(--cell));
+    gap: 3px;
+}
+
+.cell,
+.cell>div,
+.mini {
+    background-size: 100% 100%;
+}
+
+/* keeps small pixel drawings sharp when they get scaled up */
+.cell,
+.cell>div,
+.mini,
+#runner,
+.drawn {
+    image-rendering: pixelated;
+}
+
+.cell {
+    position: relative;
+}
+
+.cell>div {
+    position: absolute;
+    inset: 0;
+}
+
+/* placeholder for food with no sprite yet: just the name */
+.cell>.label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4px;
+    font-size: calc(var(--cell) * 0.17);
+    overflow-wrap: anywhere;
+}
+
+#order {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+#order:empty {
+    display: none;
+}
+
+#order .got {
+    text-decoration: line-through;
+}
+
+.mini {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+}
+
+#dodgeMsg,
+#swipeMsg,
+#skillMsg {
+    margin-top: 14px;
+    height: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ---------- card swipe ---------- */
+/* placeholders: your own card and reader drawings go in IMAGES in js/sprites.js */
+
+#reader {
+    width: min(86vw, 440px);
+    padding: 14px;
+    border: 3px solid #000;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+#leds {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.led {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    background: #ddd;
+}
+
+#ledRed.on {
+    background: red;
+}
+
+#ledGreen.on {
+    background: limegreen;
+}
+
+#track {
+    position: relative;
+    height: 90px;
+    border-top: 3px solid #000;
+}
+
+#card {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 120px;
+    height: 70px;
+    box-sizing: border-box;
+    border: 3px solid #000;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    touch-action: none;
+}
+
+/* card with your own drawing: no placeholder border */
+#card.drawn {
+    border: none;
+    background-color: transparent;
+    background-size: 100% 100%;
+}
+
+/* card swipe with your own reader drawing.
+   the numbers are % of reader.png (88 x 32 pixels) so everything lines up at any screen size.
+   if you redraw the reader, change them to match the new drawing */
+#reader.drawn {
+    position: relative;
+    padding: 0;
+    border: none;
+    aspect-ratio: 88 / 32;
+    background-size: 100% 100%;
+}
+
+#reader.drawn #leds {
+    margin: 0;
+}
+
+/* the lights sit right on top of the ones in the drawing and only show when they turn on */
+#reader.drawn .led {
+    position: absolute;
+    top: 18.75%;
+    width: 3.41%;
+    height: 9.375%;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+#reader.drawn #ledRed {
+    left: 71.59%;
+}
+
+#reader.drawn #ledGreen {
+    left: 79.55%;
+}
+
+#reader.drawn #ledRed.on {
+    background: #ff3b3b;
+    box-shadow: 0 0 10px 5px #ff3b3b;
+}
+
+#reader.drawn #ledGreen.on {
+    background: #3bff7a;
+    box-shadow: 0 0 10px 5px #3bff7a;
+}
+
+/* the card slides along the bottom part of the reader, under the slot line */
+#reader.drawn #track {
+    position: absolute;
+    left: 6.82%;
+    right: 7.95%;
+    top: 43.75%;
+    height: 43.75%;
+    border: none;
+}
+
+#reader.drawn #card.drawn {
+    top: 0;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 24 / 14;
+}
+
+/* ---------- skill check ---------- */
+
+#dialBox {
+    position: relative;
+    width: min(60vw, 40vh);
+    height: min(60vw, 40vh);
+}
+
+#dial {
+    width: 100%;
+    height: 100%;
+}
+
+/* your own dial and needle drawings sit on top of each other and fill the box */
+#dialPic,
+#needlePic {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background-size: 100% 100%;
+    image-rendering: pixelated;
+}
+
+#dialBox.drawn #dial {
+    display: none;
+}
+
+#dialBox.drawn #dialPic,
+#dialBox.drawn #needlePic {
+    display: block;
+}
+
+#runner {
+    position: absolute;
+    top: 10vh;
+    left: -80vh;
+    width: 70vh;
+    height: 70vh;
+    background-size: 100% 100%;
+    pointer-events: none;
+}
+
+#runner.run {
+    animation: cross 0.4s linear;
+}
+
+@keyframes cross {
+    from {
+        left: -80vh;
+    }
+
+    to {
+        left: 100vw;
+    }
+}
+
+/* ---------- dining hall ---------- */
+
+#hall,
+#hall * {
+    touch-action: none;
+}
+
+#hall a-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#want {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+#menu {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+#menu.on {
+    display: flex;
+}
+
+#pics {
+    display: none;
+}
+
+/* phone: order list goes above the grid */
+@media (max-width: 600px) {
+    #dodgeRow {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    #order {
+        font-size: 13px;
+        line-height: 1.3;
+    }
+}
